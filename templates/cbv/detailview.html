@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if article_data %}
+    <div class="container">
+
+        <h1>{{ article_data.title }}</h1>
+        <p>{{ article_data.text }}</p>
+
+    </div>
+    {% else %}
+        <div class="container">
+            Sorry, Article does not exists
+        </div>
+    {% endif %}
+{% endblock %}

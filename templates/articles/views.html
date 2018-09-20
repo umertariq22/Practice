@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+{% if all %}
+    {% for alls in all %}
+        {{ alls.author }}
+    {% endfor %}
+
+    {% for comments in comment %}
+        {{ comments.text }}
+    {% endfor %}
+    {% else %}
+        <h1>No Article Found</h1>
+{% endif %}
+{% endblock %}
