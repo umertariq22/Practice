@@ -11,7 +11,7 @@
                             <i class="fa fa-user"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" id="fname" name="fname" autofocus>
+                    <input type="text" class="form-control" id="fname" name="fname" onkeydown="validateFname()" onkeyup="validateFname()" onkeypress="validateFname()">
                 </div>
             </div>
             <div class="form-group row">
@@ -78,7 +78,7 @@
                 <div class="col-sm-10">
                     <div class="row">
                         <div class="col">
-                            <select name="date" class="form-control">
+                            <select name="date" class="form-control" id="date">
                                 <option value="0" selected>Date</option>
                                 {% for n in days %}
                                     <option value="{{ n }}">{{ n }}</option>
@@ -86,7 +86,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <select name="month" class="form-control">
+                            <select name="month" class="form-control" id="month">
                                 <option value="0" selected>Month</option>
                                 {% for x in months %}
                                     <option value="{{ x }}">{{ x }}</option>
@@ -94,7 +94,7 @@
                             </select>
                         </div>
                         <div class="col">
-                            <select name="year" class="form-control">
+                            <select name="year" class="form-control" id="year">
                                 <option selected value="0">Year</option>
                                 {% for year in years %}
                                     <option value="{{ year }}">{{ year }}</option>
@@ -112,4 +112,24 @@
 
         </form>
     </div>
+    <script>
+    lname = $('#lname').val();
+    email = $('#email').val();
+    pass = $('#pass').val();
+    cpass = $('#cpass').val();
+    gender = $('input[type="radio"]').val();
+    gender = $('#date').val();
+    gender = $('#month').val();
+    gender = $('#year').val();
+    $('form').submit(function (e) {
+        e.preventDefault()
+    });
+    function validateFname() {
+        var fname = $('#fname').val();
+        if (fname.search('[a-z|A-Z]{1}')){
+            alert("Empty")
+        }
+    }
+
+    </script>
 {% endblock %}
