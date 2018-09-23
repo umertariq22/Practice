@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block content %}
     <div class="container">
         <h1 class="display-4">Create an Account</h1>
@@ -11,7 +12,7 @@
                             <i class="fa fa-user"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" id="fname" name="fname" onkeydown="validateFname()" onkeyup="validateFname()" onkeypress="validateFname()">
+                    <input type="text" class="form-control" id="fname" name="fname" onkeydown="validateFname()" onblur="validateFname()" onkeyup="validateFname()" >&nbsp;&nbsp;<div id="FnameError"></div>
                 </div>
             </div>
             <div class="form-group row">
@@ -22,7 +23,8 @@
                             <i class="fa fa-user"></i>
                         </span>
                     </div>
-                    <input type="text" class="form-control" id="lname" name="lname" >
+                    <input type="text" class="form-control" id="lname" name="lname" onkeydown="validateLname()" onblur="validateLname()" onkeyup="validateLname()">
+                    &nbsp;&nbsp;<div id="LnameError"></div>
                 </div>
             </div>
             <div class="form-group row">
@@ -33,7 +35,8 @@
                             <i class="fa fa-at"></i>
                         </span>
                     </div>
-                    <input type="email" class="form-control" id="email" name="email" >
+                    <input type="email" class="form-control" id="email" name="email" onkeydown="validateEmail()" onkeyup="validateEmail()" onblur="validateEmail()">
+                    &nbsp;&nbsp;<div id="EmailError"></div>
                 </div>
             </div>
             <div class="form-group row">
@@ -112,24 +115,17 @@
 
         </form>
     </div>
+    <script src="{% static 'js/formValidator.js' %}"></script>
     <script>
-    lname = $('#lname').val();
-    email = $('#email').val();
-    pass = $('#pass').val();
-    cpass = $('#cpass').val();
-    gender = $('input[type="radio"]').val();
-    gender = $('#date').val();
-    gender = $('#month').val();
-    gender = $('#year').val();
-    $('form').submit(function (e) {
-        e.preventDefault()
-    });
-    function validateFname() {
-        var fname = $('#fname').val();
-        if (fname.search('[a-z|A-Z]{1}')){
-            alert("Empty")
-        }
-    }
+        $('form').submit(function (self) {
+            self.preventDefault();
+            fname = validateFname();
+            lname = validateLname();
+            email = validateEmail();
+            if (lname || fname || email){
+                alert('true')
+            }
+        });
 
     </script>
 {% endblock %}
