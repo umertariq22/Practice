@@ -1,4 +1,4 @@
-//TODO: Validate First Name
+// TODO: Validate First Name
 function validateFname() {
     let FnameHasError = false;
     let fname = $('#fname').val();
@@ -28,7 +28,7 @@ function validateFname() {
     }
     return FnameHasError
 }
-//TODO: Validate Last Name
+// TODO: Validate Last Name
 function validateLname() {
     let LnameHasError = false;
     let lname = $('#lname').val();
@@ -59,7 +59,7 @@ function validateLname() {
 
     return LnameHasError
 }
-//TODO: Validate Email
+// TODO: Validate Email
 function validateEmail() {
     let EmailHasError = false;
     let email = $('#email').val();
@@ -87,3 +87,67 @@ function validateEmail() {
     }
     return EmailHasError;
 }
+function password() {
+            var pass = $('#pass').val();
+            var length = pass.length;
+            var strength = 0;
+            var format = /[ !@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+            PasswordHasError = false;
+            if (length < 8){
+                error = 'At least 8 characters are required';
+                PasswordHasError = true;
+                $('#eightChar').css('color','black')
+            }else if(length >= 8 && length <= 15){
+                PasswordHasError = false;
+                strength += 4 * length;
+                $('#eightChar').css('color','#28a745')
+            }else if(length >15){
+                strength += 60;
+                PasswordHasError = false;
+            }
+            if (/[A-Z]/.test(pass)){
+                strength += 10;
+                PasswordHasError = false;
+                $('#upperChar').css('color','#28a745')
+            }else{
+                $('#upperChar').css('color','black')
+            }
+            if (/[0-9]/.test(pass)){
+                strength += 10;
+                PasswordHasError = false;
+                $('#numChar').css('color','#28a745')
+            }else{
+                $('#numChar').css('color','black')
+            }
+            if(format.test(pass)){
+                strength += 10;
+                PasswordHasError = false;
+                $('#specialChar').css('color','#28a745')
+            }else{
+                $('#specialChar').css('color','black')
+            }
+            if(PasswordHasError){
+                $('#pass').addClass('bad');
+                $('#result').html('<p>'+error+'</p>');
+                $('#result').css('color','#dc3545')
+            }else{
+                if (strength >=50 && strength <60){
+                    $('#pass').addClass('bad').removeClass('good better strong');
+                    $('#result').html('Bad Password').css('color','#dc3545')
+                }
+                else if(strength >=60 && strength < 70){
+                    $('#pass').addClass('better').removeClass('good bad strong');
+                    $('#result').html('Better Password').css('color','#ffc107')
+                }
+                else if(strength >=70 && strength <80){
+                    $('#pass').addClass('good').removeClass('bad better strong');
+                    $('#result').html('Good Password').css('color','#32CD32')
+                }
+                else if(strength >= 80){
+                    $('#pass').addClass('strong').removeClass('good better bad');
+                    $('#result').html('Strong Password').css('color','#28a745')
+                }
+
+            }
+            return PasswordHasError;
+        }

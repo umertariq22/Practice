@@ -47,7 +47,19 @@
                             <i class="fa fa-lock"></i>
                         </span>
                     </div>
-                    <input type="password" class="form-control" id="pass" name="pass" >
+                    <input type="password" class="form-control" id="pass" name="pass" onkeydown="password()" onkeyup="password()" onfocus="password()">
+                    &nbsp;&nbsp;
+                    <div class="result"></div>
+                </div>
+            </div>
+            <div class="row" id="instructions" style="display: none;">
+                <div class="offset-sm-2 col-sm-10">
+                    <ul>
+                        <li id="eightChar">At least 8 characters are required</li>
+                        <li id="upperChar">Use Uppercase letters</li>
+                        <li id="numChar">Use Numbers</li>
+                        <li id="specialChar">Use Special Characters</li>
+                    </ul>
                 </div>
             </div>
             <div class="form-group row">
@@ -126,6 +138,11 @@
                 alert('true')
             }
         });
-
+        $('#pass').focus(function () {
+            $('#instructions').fadeIn()
+        });
+        $('#pass').blur(function () {
+            $('#instructions').fadeOut();
+        });
     </script>
 {% endblock %}
