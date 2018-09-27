@@ -100,6 +100,7 @@ function password() {
             }else if(length >= 8 && length <= 15){
                 PasswordHasError = false;
                 strength += 4 * length;
+                error = '';
                 $('#eightChar').css('color','#28a745')
             }else if(length >15){
                 strength += 60;
@@ -128,26 +129,117 @@ function password() {
             }
             if(PasswordHasError){
                 $('#pass').addClass('bad');
-                $('#result').html('<p>'+error+'</p>');
+                $('#result').html('<p> * '+error+'</p>');
                 $('#result').css('color','#dc3545')
+                $('label[for="pass"]').css('color','#dc3545')
             }else{
                 if (strength >=50 && strength <60){
                     $('#pass').addClass('bad').removeClass('good better strong');
-                    $('#result').html('Bad Password').css('color','#dc3545')
+                    $('#result').html('Bad Password').css('color','#dc3545');
+                    $('label[for="pass"]').css('color','#dc3545')
                 }
                 else if(strength >=60 && strength < 70){
                     $('#pass').addClass('better').removeClass('good bad strong');
-                    $('#result').html('Better Password').css('color','#ffc107')
+                    $('#result').html('Better Password').css('color','#ffc107');
+                    $('label[for="pass"]').css('color','#ffc107')
                 }
                 else if(strength >=70 && strength <80){
                     $('#pass').addClass('good').removeClass('bad better strong');
-                    $('#result').html('Good Password').css('color','#32CD32')
+                    $('#result').html('Good Password').css('color','#32CD32');
+                    $('label[for="pass"]').css('color','#32CD32')
                 }
                 else if(strength >= 80){
                     $('#pass').addClass('strong').removeClass('good better bad');
                     $('#result').html('Strong Password').css('color','#28a745')
+                    $('label[for="pass"]').css('color','#28a745')
                 }
 
             }
             return PasswordHasError;
         }
+function ConfirmPassword() {
+    var pass = $('#pass').val();
+    var cpass = $('#cpass').val();
+    var CPassHasError = false;
+
+    if (pass === cpass && cpass !== ''){
+        CPassHasError = false;
+        $('#cpass').addClass('strong');
+        $('label[for="cpass"]').css('color','#28a745');
+        $('#cpassError').html('* Password Matched').css('color','#28a745');
+    }else if(cpass === '' ){
+        CPassHasError = true;
+        $('#cpass').addClass('bad');
+        $('label[for="cpass"]').css('color','#dc3545');
+        $('#cpassError').html('* At least 8 characters required').css('color','#dc3545');
+    }else{
+        CPassHasError = true;
+        $('#cpass').addClass('bad');
+        $('label[for="cpass"]').css('color','#dc3545');
+        $('#cpassError').html('* Password not matched').css('color','#dc3545');
+    }
+    return CPassHasError
+}
+function GenderCheck() {
+    GenderHasError = false;
+    if($('input:radio[name="gender"]:checked').length === 0){
+        GenderHasError = true;
+        error = 'Please select your gender'
+    }
+    if (GenderHasError){
+        $('#GenderError').css('color','#dc3545').html('<p> * '+error+'</p>');
+    }else{
+        $('#GenderError').html('');
+    }
+    return GenderHasError;
+
+}
+function ValidateDate(val) {
+    DateHasError = false;
+    if (val === '0') {
+        DateHasError = true;
+        error = 'This field is required'
+    } else {
+        error = '';
+        DateHasError = false;
+    }
+    if (DateHasError){
+        $('#dateError').html('<p> *'+error+'</p>').css('color','red')
+    }else{
+        $('#dateError').html('')
+    }
+    return DateHasError;
+}
+
+function ValidateMonth(val) {
+    MonthHasError = false;
+    if (val === '0') {
+        MonthHasError = true;
+        error = 'This field is required'
+    } else {
+        error = '';
+        MonthHasError = false;
+    }
+    if (MonthHasError){
+        $('#monthError').html('<p> *'+error+'</p>').css('color','red')
+    }else{
+        $('#monthError').html('')
+    }
+    return MonthHasError;
+}
+function ValidateYear(val) {
+    YearHasError = false;
+    if (val === '0') {
+        YearHasError = true;
+        error = 'This field is required'
+    } else {
+        error = '';
+        YearHasError = false;
+    }
+    if (YearHasError){
+        $('#yearError').html('<p> *'+error+'</p>').css('color','red')
+    }else{
+        $('#yearError').html('')
+    }
+    return YearHasError;
+}
