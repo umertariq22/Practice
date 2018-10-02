@@ -29,8 +29,7 @@ def delete(request, pk):
 # TODO: Edit Article
 def edit(request, pk):
     if request.method == 'POST':
-        pattern = re.compile(r'^[a-z|A-Z]{1}|[0-9]|\s]$')
-        data = Articles.objects.filter(pk=pk)
+        pattern = re.compile(r'^[a-z|A-Z]{2}|[0-9]|\s]$')
         title = request.POST.get('title')
         if not title:
             print('Empty Title')

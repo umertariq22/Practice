@@ -12,7 +12,7 @@ class Articles(models.Model):
 
 
 class Comments(models.Model):
-    article = models.ForeignKey(Articles,on_delete=models.CASCADE)
+    article = models.ForeignKey(Articles, on_delete=models.CASCADE)
     author = models.TextField()
     text = models.TextField()
     publish_time = models.DateTimeField()

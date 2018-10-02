@@ -1,7 +1,10 @@
-from django.db import models
-from django.utils import timezone
 import random
 import string
+
+from django.db import models
+from django.utils import timezone
+
+random = ''.join([random.choice(string.ascii_letters+string.digits) for n in range(8)])
 
 
 # TODO: Create User Model and  required Functions
@@ -13,9 +16,9 @@ class User(models.Model):
     gender = models.CharField(max_length=10)
     dob = models.CharField(max_length=20)
     verified = models.BooleanField(default=False)
-    token = models.CharField(max_length=8,default=''.join([random.choice(string.ascii_letters+string.digits) for n in range(8)]))
+    token = models.CharField(max_length=8, default=random)
     created_at = models.DateTimeField(default=timezone.now())
-    activated_at = models.DateTimeField(blank=True,null=True)
+    activated_at = models.DateTimeField(blank=True, null=True)
 
     def activate(self):
         self.verified = True
