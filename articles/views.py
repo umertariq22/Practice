@@ -30,12 +30,17 @@ def delete(request, pk):
 def edit(request, pk):
     if request.method == 'POST':
         pattern = re.compile(r'^[a-z|A-Z]{2}|[0-9]|\s]$')
+        pattern2 = re.compile(r'^[[a-zA-Z]{3}|\s]$')
         title = request.POST.get('title')
         if not title:
             print('Empty Title')
         elif not pattern.match(title):
             print('Not matched')
         author = request.POST.get('author')
+        if not author:
+            print('Empty Author')
+        elif not pattern2.match(author):
+            print('Not Matched')
         article = request.POST.get('article')
         published_time = timezone.now()
         save = Articles(pk=pk, title=title, author=author, article=article, published_time=published_time)

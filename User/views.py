@@ -1,5 +1,6 @@
 import datetime
 from django.shortcuts import render
+from .models import User
 
 
 # TODO: Create Signup View
