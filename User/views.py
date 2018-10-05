@@ -1,6 +1,8 @@
 import datetime
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import User
+from passlib.hash import pbkdf2_sha256
+from articles import views
 
 
 # TODO: Create Signup View
@@ -11,11 +13,16 @@ def signup(request):
         email = request.POST.get('email')
         password = request.POST.get('pass')
         cpass = request.POST.get('cpass')
+        if password == cpass:
+            hashedPassword = pbkdf2_sha256.hash(password)
         gender = request.POST.get('gender')
         date = request.POST.get('date')
         month = request.POST.get('month')
         year = request.POST.get('year')
-        # print(fname, lname, email, password, cpass, gender, date, month, year)
+        dob = str(date) + "-" + str(month) + "-" + str(year)
+        user = User.objects.create(fname=fname, lname=lname, email=email, password=hashedPassword, dob=dob, gender=gender )
+        if user.save():
+            return redirect(views.main)
     day = [n for n in range(1, 32)]
     month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     now = datetime.datetime.now()
